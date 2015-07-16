@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>分享您的主机</title>
+<meta name="keywords"
+	content="网络,广告,网络媒体,社交,微信,微博,视频,音频,图片,reddit,www.reddit.com" />
+<meta name="description" content="分享网络上的那些事。" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta content="大辉Face 王辉" name="author">
+</head>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet"
+	href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link href="/css/flat-ui.min.css" rel="stylesheet">
+<link href="/img/favicon.ico" rel="icon">
+<body class="container">
+	<div class="jumbotron" >
+	  <h2>八牛号外 <small class="text-danger">分享计划!</small></h2>
+	  <p>如果您是一个站长，在为每日网站流量而头疼的话，请来这里，八牛号外是您对外推广宣传的一个平台，分享网站中的优秀信息，提高信息的传播率，将你我的主机连成一片云。</p>
+	  <p class="lead">微博：<a href="http://weibo.com/u/5547700992">@大辉Face</a></p>
+	  <p class="lead">邮箱：<a href="Mailto:sse_wh@163.com">sse_wh@163.com</a></p>
+	</div>
+	<div class="jumbotron" >
+	  <h2>计划图</h2>
+	  <img alt="" class="text-center" src="http://7xkefw.com1.z0.glb.clouddn.com/bbcowshare_illustrate.png">
+	</div>
+	<div class="jumbotron" >
+		<h2>技术相关</h2>
+		<ul>
+			<li>采用WebSocket协议</li>
+			<li>请求数据，JSON格式为
+				<code>{"cId":指令编码,"sId":"","data":{"待定，暂时不做要求"}}</code>
+			</li>
+			<li>响应数据，JSON格式为
+				<code>{"type":"格式编号","data":{"如下"}}</code>
+				<ul>
+					<li>错误提示：<code>{"type":"0","error":"错误内容"}</code></li>
+					<li>成功提示：<code>{"type":"100","data":{"success":"内容"}}</code></li>
+					<li>最新信息：<code>{"type":"1","data":{"id":"唯一主键","title":"标题","content":"内容","contactName":"联系人","goodCount":"赞成人数","badCount":"反对人数","imgUrl":"相关照片地址","linkUrl":"标题链接"}}</code></li>
+					<li>昨日信息：<code>{"type":"4","data":{"id":"唯一主键","title":"标题","content":"内容","contactName":"联系人","goodCount":"赞成人数","badCount":"反对人数","imgUrl":"相关照片地址","linkUrl":"标题链接"}}</code></li>
+					<li>TOP100信息：<code>{"type":"5","data":{"id":"唯一主键","title":"标题","content":"内容","contactName":"联系人","goodCount":"赞成人数","badCount":"反对人数","imgUrl":"相关照片地址","linkUrl":"标题链接"}}</code></li>
+					<li>每日词条：<code>{"type":"6","data":{"title":"标题","imgUrl":"相关照片地址","linkUrl":"标题链接"}}</code></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="jumbotron" >
+		<div class="row" id="hostInfo">
+			<h2>已加入主机</h2>
+	      </div>
+	</div>
+	<div class="jumbotron" >
+	  <h2>提交您的主机，还等什么？</h2>
+	  <form class="form" action="index.html" onsubmit="return goShare();" method="post">
+	  	<div class="form-group">
+          <div class="col-md-12">
+            <p class="form-control-static">http://ip地址/域名:端口/point</p>
+          </div>
+        </div>
+		<div class="form-group col-md-12 col-xs-12">
+			<label class="sr-only" for="name">名称</label> 
+			<input type="text" class="form-control" maxlength="20" id="name" placeholder="名称" required>
+		</div>
+		<div class="form-group col-md-7 col-xs-12">
+			<label class="sr-only" for="ip">ip地址/域名</label>
+			<input type="text" class="form-control" id="ip" placeholder="ip地址/域名" required>
+		</div>
+		<div class="form-group col-md-5 col-xs-12">
+			<label class="sr-only" for="port">端口</label> 
+			<input type="number" class="form-control" id="port" value="80" placeholder="端口" required>
+		</div>
+		<div class="form-group col-md-12 col-xs-12">
+			<label class="sr-only" for="point">ServerEndpoint</label> 
+			<input type="text" class="form-control" id="point" placeholder="ServerEndpoint" required>
+		</div>
+		<div class="form-group col-md-12 col-xs-12">
+			<label class="sr-only" for="email">Email</label> 
+			<input type="email" class="form-control" id="email" placeholder="Email" required>
+		</div>
+		<button type="submit"  class="btn btn-danger">提交</button>
+	</form>
+	</div>
+
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/flat-ui.min.js"></script>
+    <script type="text/javascript" src="js/socket.js"></script>
+	<script type="text/javascript">
+		Server.connect("ws://" + host + "/open/62616e697568616f77616903");
+		Server.socket.onmessage = function(message) {
+			var data = eval('(' + message.data + ')');
+			if (data["type"] == 100) {
+				alert(data["data"]["success"]);
+				location.href="/index.html";
+			}
+			
+			//主机列表
+			if (data["type"] == 7) {
+				var hosts = document.getElementById("hostInfo");
+				var div = document.createElement("div");
+				div.setAttribute("class", "tile col-xs-3");
+				div.setAttribute("style", "background-color:#3498DB");
+				var h = document.createElement("h3");
+				h.setAttribute("class", "tile-title");
+				h.appendChild(document.createTextNode(data["data"]["name"]));
+				/* var p = document.createElement("p");
+				p.appendChild(document.createTextNode(data["data"]["ip"])); */
+				div.appendChild(h);
+				//div.appendChild(p);
+				hosts.appendChild(div);
+			}
+			
+		}
+		function goShare(){
+			var name = document.getElementById("name").value;
+			var ip = document.getElementById("ip").value;
+			var port = document.getElementById("port").value;
+			var point = document.getElementById("point").value;
+			var email = document.getElementById("email").value;
+			
+			var host = '{"cId":6,"data":{"name":"'+name+'","ip":"'+ip+'","port":"'+port+'","point":"'+point+'","email":"'+email+'"}}'
+			Server.socket.send(host);
+			
+			return false;
+		}
+	</script>
+</body>
+</html>
