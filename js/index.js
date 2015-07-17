@@ -1,4 +1,4 @@
-Server.connect("ws://" + host + ":8080/open/62616e697568616f77616901");//
+Server.connect("ws://grownbook.com:8001/open/index");//
 var i = 0;
 
 if (localStorage.fakeName == undefined) {
@@ -44,7 +44,7 @@ Server.socket.onmessage = function(message) {
 		alert(data["error"]);
 
 	}else if (data["type"] == 6) {
-		var dailyMain = document.getElementById("dailyMain");
+		/*var dailyMain = document.getElementById("dailyMain");
 		var a = document.createElement("a")
 		a.setAttribute("href", data["data"]["linkUrl"]);
 		var strong = document.createElement("strong");
@@ -56,7 +56,7 @@ Server.socket.onmessage = function(message) {
 		a.appendChild(strong);
 		a.appendChild(br);
 		a.appendChild(img);
-		dailyMain.appendChild(a);
+		dailyMain.appendChild(a);*/
 		
 		
 	} else if (data["type"] == 7) {
@@ -100,7 +100,7 @@ function demoHost(data){
 	var hostBox = document.getElementById("media_host_box")
 	var hostButton = document.createElement("button");
 	hostButton.setAttribute("class", "btn btn-primary btn-block");
-	hostButton.setAttribute("onclick", "location.href='/host.html?id="+data["id"]+"'");
+	hostButton.setAttribute("onclick", "location.href='/host.html?id="+data["path"]+"'");
 	if(data["type"]!=0){
 		hostButton.setAttribute("disabled", "disabled");
 		hostButton.appendChild(document.createTextNode(data["name"]+"(未启用)"))

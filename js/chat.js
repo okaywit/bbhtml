@@ -1,4 +1,4 @@
-Server.connect("ws://"+host+"/open/62616e697568616f77616902");
+Server.connect("ws://"+host+":8001/open/box");
 
 if (localStorage.fakeName == undefined) {
 	localStorage.fakeName = prompt("请输入一个屌炸天的名称", "");

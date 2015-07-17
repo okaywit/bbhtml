@@ -3,14 +3,14 @@ var id = (function(){
 	if(param!=undefined){
 		id = param.substring(4, param.length);
 		if(id==undefined || id.trim()==""){
-			id = "62616e697568616f77616901";
+			id = "index";
 		}
 		return id;
 	}else{
-		return "62616e697568616f77616901";
+		return "index";
 	}
 })();
-Server.connect("ws://" + host + "/open/"+id+"");
+Server.connect("ws://"+host+":8001/open/"+id+"");
 
 var i = 0;
 
@@ -72,7 +72,10 @@ Server.socket.onmessage = function(message) {
 		dailyMain.appendChild(a);
 		
 		
-	}  else {
+	} else if (data["type"] == 8) {
+
+
+	} else {
 		var pa = new Paper();
 		pa.id = data["data"]["id"]["$numberLong"];
 		if (pa.id == undefined || pa.id == Object) {

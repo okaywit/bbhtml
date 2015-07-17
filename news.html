@@ -1,0 +1,9 @@
+<script type="text/javascript" src="js/socket.js"></script>
+<script type="text/javascript">
+	
+	Server.connect("ws://localhost:8001/open/news");
+	Server.socket.onmessage=function(message){
+		alert(message.data);
+		location.href = message.data;
+	}
+</script>

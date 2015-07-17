@@ -76,6 +76,10 @@
 			<input type="text" class="form-control" id="point" placeholder="ServerEndpoint" required>
 		</div>
 		<div class="form-group col-md-12 col-xs-12">
+			<label class="sr-only" for="path">路径</label> 
+			<input type="text" class="form-control" id="path" placeholder="路径" required>
+		</div>
+		<div class="form-group col-md-12 col-xs-12">
 			<label class="sr-only" for="email">Email</label> 
 			<input type="email" class="form-control" id="email" placeholder="Email" required>
 		</div>
@@ -90,7 +94,7 @@
 	<script type="text/javascript" src="js/flat-ui.min.js"></script>
     <script type="text/javascript" src="js/socket.js"></script>
 	<script type="text/javascript">
-		Server.connect("ws://" + host + "/open/62616e697568616f77616903");
+		Server.connect("ws://" + host + ":8001/open/share");
 		Server.socket.onmessage = function(message) {
 			var data = eval('(' + message.data + ')');
 			if (data["type"] == 100) {
@@ -121,8 +125,9 @@
 			var port = document.getElementById("port").value;
 			var point = document.getElementById("point").value;
 			var email = document.getElementById("email").value;
+			var path = document.getElementById("path").value;
 			
-			var host = '{"cId":6,"data":{"name":"'+name+'","ip":"'+ip+'","port":"'+port+'","point":"'+point+'","email":"'+email+'"}}'
+			var host = '{"cId":6,"data":{"name":"'+name+'","ip":"'+ip+'","port":"'+port+'","point":"'+point+'","email":"'+email+'","path":"'+path+'"}}'
 			Server.socket.send(host);
 			
 			return false;
