@@ -1,14 +1,9 @@
-Server.connect("ws://grownbook.com:8001/open/index");//
+Server.connect("ws://"+host+":8001/open/index");//
 var i = 0;
 
-if (localStorage.fakeName == undefined) {
-	localStorage.fakeName = prompt("请输入一个屌炸天的名称", "");
-	if (localStorage.fakeName == null || localStorage.fakeName.trim() == "") {
-		localStorage.fakeName = "无名氏";
-	}
+if (localStorage.fakeName != undefined && localStorage.fakeName.trim() != "") {
 	document.getElementById("contactName").value=localStorage.fakeName;
 }
-document.getElementById("contactName").value=localStorage.fakeName;
 
 function addMedia(obj) {
 	var conditionType = obj.value;
@@ -41,7 +36,7 @@ function addMedia(obj) {
 Server.socket.onmessage = function(message) {
 	var data = eval('(' + message.data + ')');
 	if (data["type"] == 0) {
-		alert(data["error"]);
+		 showError(data["error"]);
 
 	}else if (data["type"] == 6) {
 		/*var dailyMain = document.getElementById("dailyMain");
@@ -136,6 +131,8 @@ function goRelease() {
 			+ contactTel + '","tag":"' + tag + '","imgUrl":"' + imgUrl
 			+ '","linkUrl":"' + linkUrl + '"}}';
 	Server.socket.send(paper);
+
+	localStorage.fakeName = contactName;
 
 	document.getElementById("title").value = "";
 	document.getElementById("content").value = "";

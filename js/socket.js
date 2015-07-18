@@ -14,13 +14,16 @@ Server.connect = (function(host){
         //showMsg(message);
     };
     Server.socket.onclose=function(){
-
+         showError("服务器断开，请刷新页面");
     };
     Server.socket.onerror=function(e){
-
+        showError("出现异常，请刷新页面");
     };
 });
 
 var host = window.location.host;
 
+function showError(error){
+    document.getElementById("error").innerHTML = error;
+}
 

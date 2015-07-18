@@ -10,7 +10,7 @@ if (localStorage.fakeName == undefined) {
 Server.socket.onmessage = function(message) {
 	var data = eval('(' + message.data + ')');
 	if (data["type"] == 0) {
-		alert(data["error"]);
+		showError(data["error"]);
 	}
 	if (data["type"] == 2) {
 		showMsg(data["data"]["msg"], data["data"]["fakeName"]);
@@ -125,7 +125,6 @@ function sendText() {
 
 	var paper = '{"cId":3,"sId":"","data":{"fakeName":"' + localStorage.fakeName + '","msg":"' + msg + '"}}';
 	Server.socket.send(paper);
-
 }
 function demoImg(msg) {
 	var imgDiv = document.createElement("div");
