@@ -11,11 +11,13 @@
 <meta content="大辉Face 王辉" name="author">
 </head>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet"
-	href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link href="/css/flat-ui.min.css" rel="stylesheet">
-<link href="/img/favicon.ico" rel="icon">
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+<link href="css/flat-ui.min.css" rel="stylesheet">
+<link href="img/favicon.ico" rel="icon">
+<link href="css/main.css" rel="stylesheet">
+
 <body class="container">
+	<p class="lead text-center bg-danger" id="error"></p>
 	<div class="jumbotron" >
 	  <h2>八牛号外 <small class="text-danger">分享计划!</small></h2>
 	  <p>如果您是一个站长，在为每日网站流量而头疼的话，请来这里，八牛号外是您对外推广宣传的一个平台，分享网站中的优秀信息，提高信息的传播率，将你我的主机连成一片云。</p>
@@ -100,6 +102,9 @@
 			if (data["type"] == 100) {
 				alert(data["data"]["success"]);
 				location.href="/index.html";
+			}
+			if (data["type"] == 0) {
+				showError(data["error"]);
 			}
 			
 			//主机列表
