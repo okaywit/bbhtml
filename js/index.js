@@ -1,4 +1,4 @@
-Server.connect("ws://"+host+":8001/open/index");//
+Server.connect("ws://"+host+":8001/index");//
 var i = 0;
 
 if (localStorage.fakeName != undefined && localStorage.fakeName.trim() != "") {
@@ -39,7 +39,7 @@ Server.socket.onmessage = function(message) {
 		 showError(data["error"]);
 
 	}else if (data["type"] == 6) {
-		/*var dailyMain = document.getElementById("dailyMain");
+		var dailyMain = document.getElementById("dailyMain");
 		var a = document.createElement("a")
 		a.setAttribute("href", data["data"]["linkUrl"]);
 		var strong = document.createElement("strong");
@@ -51,7 +51,7 @@ Server.socket.onmessage = function(message) {
 		a.appendChild(strong);
 		a.appendChild(br);
 		a.appendChild(img);
-		dailyMain.appendChild(a);*/
+		dailyMain.appendChild(a);
 		
 		
 	} else if (data["type"] == 7) {
@@ -335,11 +335,3 @@ function demo(mediaBox, pa) {
 
 	mediaBox.appendChild(media);
 }
-
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?f3a7b03e683b3dc0971832145b7fadfd";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();

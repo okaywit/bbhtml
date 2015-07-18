@@ -1,23 +1,31 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html>
 <head>
-<meta charset="UTF-8">
-<title>分享您的主机</title>
-<meta name="keywords"
-	content="网络,广告,网络媒体,社交,微信,微博,视频,音频,图片,reddit,www.reddit.com" />
-<meta name="description" content="分享网络上的那些事。" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<meta content="大辉Face 王辉" name="author">
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>分享您的主机</title>
+	<meta name="keywords"
+		content="网络,广告,网络媒体,社交,微信,微博,视频,音频,图片,reddit,www.reddit.com" />
+	<meta name="description" content="分享网络上的那些事。" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta content="大辉Face 王辉" name="author">
+
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link href="css/flat-ui.min.css" rel="stylesheet">
+	<link href="img/favicon.ico" rel="icon">
+	<link href="css/main.css" rel="stylesheet">
 </head>
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link href="css/flat-ui.min.css" rel="stylesheet">
-<link href="img/favicon.ico" rel="icon">
-<link href="css/main.css" rel="stylesheet">
 
 <body class="container">
-	<p class="lead text-center bg-danger" id="error"></p>
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
 	<div class="jumbotron" >
 	  <h2>八牛号外 <small class="text-danger">分享计划!</small></h2>
 	  <p>如果您是一个站长，在为每日网站流量而头疼的话，请来这里，八牛号外是您对外推广宣传的一个平台，分享网站中的优秀信息，提高信息的传播率，将你我的主机连成一片云。</p>
@@ -54,6 +62,7 @@
 	      </div>
 	</div>
 	<div class="jumbotron" >
+		<p class="lead text-center bg-danger" id="error"></p>
 	  <h2>提交您的主机，还等什么？</h2>
 	  <form class="form" action="index.html" onsubmit="return goShare();" method="post">
 	  	<div class="form-group">
@@ -66,8 +75,8 @@
 			<input type="text" class="form-control" maxlength="20" id="name" placeholder="名称" required>
 		</div>
 		<div class="form-group col-md-7 col-xs-12">
-			<label class="sr-only" for="ip">ip地址/域名</label>
-			<input type="text" class="form-control" id="ip" placeholder="ip地址/域名" required>
+			<label class="sr-only" for="ip">ip地址</label>
+			<input type="text" class="form-control" id="ip" placeholder="ip地址" required>
 		</div>
 		<div class="form-group col-md-5 col-xs-12">
 			<label class="sr-only" for="port">端口</label> 
@@ -78,8 +87,8 @@
 			<input type="text" class="form-control" id="point" placeholder="ServerEndpoint" required>
 		</div>
 		<div class="form-group col-md-12 col-xs-12">
-			<label class="sr-only" for="path">路径</label> 
-			<input type="text" class="form-control" id="path" placeholder="路径" required>
+			<label class="sr-only" for="path">英文别名</label> 
+			<input type="text" class="form-control" id="path" placeholder="英文路径" required>
 		</div>
 		<div class="form-group col-md-12 col-xs-12">
 			<label class="sr-only" for="email">Email</label> 

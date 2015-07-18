@@ -1,18 +1,27 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>八牛号外</title>
     <meta name="keywords" content="网络,广告,网络媒体,社交,微信,微博,视频,音频,图片,reddit,www.reddit.com" />
     <meta name="description" content="分享网络上的那些事。" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta content="大辉Face 王辉" name="author">
+
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link href="css/flat-ui.min.css" rel="stylesheet">
+	<link href="img/favicon.ico" rel="icon">
+	<link href="css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/normalize.css">
+	<script src="js/modernizr-2.6.2.min.js"></script>
+
 </head>
-<!-- 新 Bootstrap 核心 CSS 文件 -->
-<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<link href="css/flat-ui.min.css" rel="stylesheet">
-<link href="img/favicon.ico" rel="icon">
-<link href="css/main.css" rel="stylesheet">
 <style type="text/css">
 	body {
 	  padding-top: 50px;
@@ -27,6 +36,9 @@
 	}
 </style>
 <body class="container-fluid">
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
 	<nav class="navbar navbar-inverse navbar-fixed-top">
     	<div class="container">
 		    <!-- Brand and toggle get grouped for better mobile display -->
@@ -34,7 +46,7 @@
 	          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	            <span class="sr-only">Toggle navigation</span>
 	          </button>
-	          <a class="navbar-brand" href="#">八牛号外</a>
+	          <a class="navbar-brand" href="/">八牛号外</a>
 	        </div>
 	    	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
@@ -76,9 +88,9 @@
 		 	<!-- 主机 -->
 		 	<p class="lead">主机列表</p>
 		    <div class="col-md-12 col-xs-12 btn-group tile" id="media_host_box" role="main"></div>
-			<!-- <p class="lead">每日词条</p>
+			<p class="lead">每日词条</p>
 			<div class="col-md-12 col-xs-12 text-center tile" id="dailyMain"></div>
-			<p class="lead">筛选</p>
+			<!-- p class="lead">筛选</p>
 			<div class="tile">
 				<label class="checkbox" for="checkbox1">
 	            	<input type="checkbox" data-toggle="checkbox" value="" id="checkbox1" checked="checked" class="custom-checkbox" disabled readonly><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
@@ -151,5 +163,14 @@
     <script type="text/javascript" src="js/socket.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
     <script type="text/javascript" src="js/flat-ui.min.js"></script>
+    <script type="text/javascript">
+	    var _hmt = _hmt || [];
+		(function() {
+		  var hm = document.createElement("script");
+		  hm.src = "//hm.baidu.com/hm.js?f3a7b03e683b3dc0971832145b7fadfd";
+		  var s = document.getElementsByTagName("script")[0]; 
+		  s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
 </body>
 </html>
