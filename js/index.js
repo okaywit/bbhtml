@@ -1,4 +1,4 @@
-Server.connect("ws://"+host+":8001/index");//
+Server.connect("ws://"+host+":8001/open/index");//
 var i = 0;
 
 if (localStorage.fakeName != undefined && localStorage.fakeName.trim() != "") {
@@ -56,7 +56,7 @@ Server.socket.onmessage = function(message) {
 		
 	} else if (data["type"] == 7) {
 		demoHost(data["data"]);
-	} else {
+	} else if (data["type"] == 1 || data["type"] == 4 || data["type"] == 5) {
 		var pa = new Paper();
 		pa.id = data["data"]["id"]["$numberLong"];
 		if (pa.id == undefined || pa.id == Object) {
