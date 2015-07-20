@@ -1,4 +1,4 @@
-Server.connect("ws://"+host+":8001/open/index");//
+Server.connect("ws://"+host+":8001/index");//
 var i = 0;
 
 if (localStorage.fakeName != undefined && localStorage.fakeName.trim() != "") {
