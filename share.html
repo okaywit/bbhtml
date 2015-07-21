@@ -141,7 +141,7 @@
 			var email = document.getElementById("email").value;
 			var path = document.getElementById("path").value;
 			
-			var host = '{"cId":6,"data":{"name":"'+name+'","ip":"'+ip+'","port":"'+port+'","point":"'+point+'","email":"'+email+'","path":"'+path+'"}}'
+			var host = '{"mode":6,"shareHost":{"name":"'+name+'","ip":"'+ip+'","port":"'+port+'","point":"'+point+'","email":"'+email+'","path":"'+path+'"}}'
 			Server.socket.send(host);
 			
 			return false;

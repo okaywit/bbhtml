@@ -5,58 +5,16 @@ if (localStorage.fakeName != undefined && localStorage.fakeName.trim() != "") {
 	document.getElementById("contactName").value=localStorage.fakeName;
 }
 
-function addMedia(obj) {
-	var conditionType = obj.value;
-	var href = "";
-	var mediaBox = (function() {
-		if (conditionType == 4) {
-			href= "#media_yesterday_box";
-			return document.getElementById("media_yesterday_box")
-		}
-		if (conditionType == 5) {
-			href= "#media_top100_box";
-			return document.getElementById("media_top100_box")
-		}
-		return null;
-	})();
-
-	if (obj.checked) {
-		mediaBox.setAttribute("style", "border-left-color: #F1C40F;display: block !important;");
-		if (mediaBox.childNodes.length <= 1) {
-			var paper = '{"cId":5,"sId":"","data":{"type":"' + conditionType
-					+ '"}}';
-			Server.socket.send(paper);
-		}
-		location.href = href;
-	} else {
-		mediaBox.setAttribute("style", "display: none !important;")
-	}
-}
-
 Server.socket.onmessage = function(message) {
 	var data = eval('(' + message.data + ')');
 	if (data["type"] == 0) {
 		 showError(data["error"]);
 
-	}else if (data["type"] == 6) {
-		var dailyMain = document.getElementById("dailyMain");
-		var a = document.createElement("a")
-		a.setAttribute("href", data["data"]["linkUrl"]);
-		var strong = document.createElement("strong");
-		strong.appendChild(document.createTextNode(data["data"]["title"]));
-		var br = document.createElement("br");
-		var img =  document.createElement("img");
-		img.setAttribute("src", data["data"]["imgUrl"]);
-		
-		a.appendChild(strong);
-		a.appendChild(br);
-		a.appendChild(img);
-		dailyMain.appendChild(a);
-		
-		
+	}else if (data["type"] == 3) {
+		//console.log(data["data"]["paper"]["title"]);
 	} else if (data["type"] == 7) {
 		demoHost(data["data"]);
-	} else if (data["type"] == 1 || data["type"] == 4 || data["type"] == 5) {
+	} else if (data["type"] == 1 ) {
 		var pa = new Paper();
 		pa.id = data["data"]["id"]["$numberLong"];
 		if (pa.id == undefined || pa.id == Object) {
@@ -78,15 +36,7 @@ Server.socket.onmessage = function(message) {
 		pa.imgUrl = data["data"]["imgUrl"];
 		pa.linkUrl = data["data"]["linkUrl"];
 		
-		if (data["type"] == 1) {
-			pa.packIndex();
-		} else if (data["type"] == 4) {
-			pa.packYesterday();
-		} else if (data["type"] == 5) {
-			pa.packTop100();
-		} else {
-			pa.packIndex();
-		}
+		pa.packIndex();
 		i++;
 	}
 
@@ -94,15 +44,20 @@ Server.socket.onmessage = function(message) {
 function demoHost(data){
 	var hostBox = document.getElementById("media_host_box")
 	var hostButton = document.createElement("button");
-	hostButton.setAttribute("class", "btn btn-primary btn-block");
+	hostButton.setAttribute("class", "btn btn-info btn-block text-left");
 	hostButton.setAttribute("onclick", "location.href='/host.html?id="+data["path"]+"'");
-	if(data["type"]!=0){
+	if(data["status"]==0){
 		hostButton.setAttribute("disabled", "disabled");
-		hostButton.appendChild(document.createTextNode(data["name"]+"(未启用)"))
+		hostButton.appendChild(document.createTextNode(data["name"]+"(未启用)"));
 	}else{
-		hostButton.appendChild(document.createTextNode(data["name"]))
+		hostButton.appendChild(document.createTextNode(data["name"]));
 	}
 	
+	var span = document.createElement("span");
+	span.setAttribute("class","badge text-right");
+	span.appendChild(document.createTextNode("点击数："+data["clickCount"]));
+	hostButton.appendChild(span);
+
 	hostBox.appendChild(hostButton);
 }
 function goRelease() {
@@ -162,18 +117,7 @@ Paper.prototype.packIndex = function() {
 	demo(mediaBox, this);
 
 };
-Paper.prototype.packYesterday = function() {
-	var mediaBox = document.getElementById("media_yesterday_box");
 
-	demo(mediaBox, this);
-
-};
-Paper.prototype.packTop100 = function() {
-	var mediaBox = document.getElementById("media_top100_box");
-
-	demo(mediaBox, this);
-
-};
 function doLike(id) {
 	if (localStorage == undefined || localStorage == "") {
 		return;

@@ -41,8 +41,7 @@ function addMedia(obj) {
 	if (obj.checked) {
 		mediaBox.setAttribute("style", "border-left-color: #F1C40F;display: block !important;");
 		if (mediaBox.childNodes.length <= 1) {
-			var paper = '{"cId":5,"sId":"","data":{"type":"' + conditionType
-					+ '"}}';
+			var paper = '{"mode":5,"conditionType":'+ conditionType + '}';
 			Server.socket.send(paper);
 		}
 		location.href = href;
@@ -53,10 +52,11 @@ function addMedia(obj) {
 
 Server.socket.onmessage = function(message) {
 	var data = eval('(' + message.data + ')');
-	if (data["type"] == 0) {
+	var type = data["type"];
+	if (type == 0) {
 		alert(data["error"]);
 
-	}else if (data["type"] == 6) {
+	}else if (type == 6) {
 		var dailyMain = document.getElementById("dailyMain");
 		var a = document.createElement("a")
 		a.setAttribute("href", data["data"]["linkUrl"]);
@@ -72,10 +72,11 @@ Server.socket.onmessage = function(message) {
 		dailyMain.appendChild(a);
 		
 		
-	} else if (data["type"] == 8) {
+	} else if (type == 8) {
 
 
-	} else {
+	} else if (type == 1 || type == 4 || type == 5) {
+		
 		var pa = new Paper();
 		pa.id = data["data"]["id"]["$numberLong"];
 		if (pa.id == undefined || pa.id == Object) {
@@ -97,11 +98,11 @@ Server.socket.onmessage = function(message) {
 		pa.imgUrl = data["data"]["imgUrl"];
 		pa.linkUrl = data["data"]["linkUrl"];
 
-		if (data["type"] == 1) {
+		if (type == 1) {
 			pa.packIndex();
-		} else if (data["type"] == 4) {
+		} else if (type == 4) {
 			pa.packYesterday();
-		} else if (data["type"] == 5) {
+		} else if (type == 5) {
 			pa.packTop100();
 		} else {
 			pa.packIndex();
@@ -131,7 +132,7 @@ function goRelease() {
 		return;
 	}
 
-	var paper = '{"cId":1,"sId":"","data":{"title":"' + title + '","content":"'
+	var paper = '{"mode":1,"paper":{"title":"' + title + '","content":"'
 			+ content + '","contactName":"' + contactName + '","contactTel":"'
 			+ contactTel + '","tag":"' + tag + '","imgUrl":"' + imgUrl
 			+ '","linkUrl":"' + linkUrl + '"}}';
@@ -199,7 +200,7 @@ function doLike(id) {
 
 	var likeCount = document.getElementById("u" + id + "").innerHTML;
 	document.getElementById("u" + id + "").innerHTML = 1 + parseInt(likeCount);
-	var paper = '{"cId":2,"sId":"","data":{"id":"' + id
+	var paper = '{"mode":2,"paperTrend":{"id":"' + id
 			+ '","type":"1","ip":""}}';
 	Server.socket.send(paper);
 }
@@ -225,7 +226,7 @@ function doNotLike(id) {
 
 	var unlikeCount = document.getElementById("d" + id + "").innerHTML;
 	document.getElementById("d" + id + "").innerHTML = 1 + parseInt(unlikeCount);
-	var paper = '{"cId":2,"sId":"","data":{"id":"' + id
+	var paper = '{"mode":2,"paperTrend":{"id":"' + id
 			+ '","type":"0","ip":""}}';
 	Server.socket.send(paper);
 }
@@ -267,7 +268,7 @@ function demo(mediaBox, pa) {
 	var downLink = document.createElement("a"); 
 	downLink.setAttribute("href", "javascript:void(0);");
 	downLink.setAttribute("class", "btn btn-xs btn-warning ");
-	downLink.setAttribute("onclick", "doLike(" + pa.id + ")");
+	downLink.setAttribute("onclick", "doNotLike(" + pa.id + ")");
 	var downI = document.createElement("i"); 
 	downI.setAttribute("id", "d" + pa.id);
 	downI.setAttribute("class", "fui-triangle-down");
@@ -301,10 +302,10 @@ function demo(mediaBox, pa) {
 	link.setAttribute("target", "_blank");
 	var cite = document.createElement("cite");
 	cite.setAttribute("title", pa.linkUrl);
-	cite.appendChild(document.createTextNode(pa.title));
+	cite.appendChild(document.createTextNode(pa.title+"  "));
 	link.appendChild(cite);
 	footer.appendChild(link);
-	footer.appendChild(document.createTextNode(" ("+pa.id+") "));
+	//footer.appendChild(document.createTextNode(" ("+pa.id+") "));
 	footer.appendChild(button);
 	conntentDiv.appendChild(p);
 	conntentDiv.appendChild(footer);
