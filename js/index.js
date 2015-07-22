@@ -9,7 +9,6 @@ Server.socket.onmessage = function(message) {
 	var data = eval('(' + message.data + ')');
 	if (data["type"] == 0) {
 		 showError(data["error"]);
-
 	}else if (data["type"] == 3) {
 		demoLog(data);
 	} else if (data["type"] == 7) {
@@ -125,7 +124,7 @@ function doNotLike(id) {
 	Server.socket.send(paper);
 }
 function demoHost(data){
-	var hostBox = document.getElementById("media_host_box")
+	var hostBox = document.getElementById("media_host_box");
 	var hostButton = document.createElement("button");
 	hostButton.setAttribute("class", "btn btn-info btn-block");
 	hostButton.setAttribute("onclick", "location.href='/host.html?id="+data["path"]+"'");
@@ -145,11 +144,13 @@ function demoHost(data){
 }
 function demoLog(data){
 	var media = document.getElementById("media_log");
+	var count = document.getElementById("log_count");
 	//{"type":3,"data":{"mode":1,"paper":{"title":"aaa","content":"aaaaa","contactName":"fuck","contactTel":"","tag":"","imgUrl":"","linkUrl":""}}}
-	var li = document.createElement("li");
-	li.appendChild(document.createTextNode(data["data"]["paper"]["contactName"]+" 发表了 "+data["data"]["paper"]["title"]));
-	media.appendChild(li);
-
+	// var li = document.createElement("li");
+	// li.appendChild(document.createTextNode(data["data"]["paper"]["contactName"]+" 发表了 "+data["data"]["paper"]["title"]));
+	// media.appendChild(li);
+	media.innerHTML = data["data"]["paper"]["contactName"]+" 发表了 "+data["data"]["paper"]["title"];
+	count.innerHTML = parseInt(count.innerHTML) + 1;
 }
 function demoIndex(data){
 	var pa = new Paper();
@@ -227,8 +228,6 @@ function demoIndex(data){
 
 	mediaLi.appendChild(mediaDd);
 	media.appendChild(mediaLi);
-
-
 
 }
 function demo(mediaBox, pa) {

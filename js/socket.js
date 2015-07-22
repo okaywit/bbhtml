@@ -24,6 +24,6 @@ Server.connect = (function(host){
 var host = window.location.host;
 
 function showError(error){
-    document.getElementById("error").innerHTML = error;
+    location.href='/error.html';
 }
 
