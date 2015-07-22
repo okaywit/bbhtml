@@ -178,11 +178,11 @@ Paper.prototype.packTop100 = function() {
 	demo(mediaBox, this);
 
 };
-function doLike(id) {
+function doLike(id,title,content,linkUrl,imgUrl) {
 	if (localStorage == undefined || localStorage == "") {
 		return;
 	}
-	if (localStorage.paperIds) {
+	/*if (localStorage.paperIds) {
 		var ids = localStorage.paperIds.split(",");
 		for (i in ids) {
 			if (id == ids[i]) {
@@ -190,19 +190,21 @@ function doLike(id) {
 				return;
 			}
 		}
-		ids.push(id);
+		ids.push(paper.id);
 		localStorage.paperIds = ids;
 	} else {
 		var ids = new Array();
-		ids.push(id);
+		ids.push(paper.id);
 		localStorage.paperIds = ids;
-	}
+	}*/
 
 	var likeCount = document.getElementById("u" + id + "").innerHTML;
 	document.getElementById("u" + id + "").innerHTML = 1 + parseInt(likeCount);
-	var paper = '{"mode":2,"paperTrend":{"id":"' + id
-			+ '","type":"1","ip":""}}';
-	Server.socket.send(paper);
+	// var paper = '{"mode":2,"paperTrend":{"id":"' + id
+	// 		+ '","type":"1","ip":""}}';
+	var paperTrend = '{"mode":2,"paperTrend":{"id":"' + id+ '","type": 1 ,"title":"' + title + '","content":"'+ content + '","imgUrl":"' + imgUrl
+			+ '","linkUrl":"' + linkUrl + '"}}';
+	Server.socket.send(paperTrend);
 }
 function doNotLike(id) {
 	if (localStorage == undefined || localStorage == "") {
@@ -226,8 +228,8 @@ function doNotLike(id) {
 
 	var unlikeCount = document.getElementById("d" + id + "").innerHTML;
 	document.getElementById("d" + id + "").innerHTML = 1 + parseInt(unlikeCount);
-	var paper = '{"mode":2,"paperTrend":{"id":"' + id
-			+ '","type":"0","ip":""}}';
+	var paperTrend = '{"mode":2,"paperTrend":{"id":"' + id+ '","type": 0 ,"title":"' + title + '","content":"'+ content + '","imgUrl":"' + imgUrl
+			+ '","linkUrl":"' + linkUrl + '"}}';
 	Server.socket.send(paper);
 }
 
@@ -257,7 +259,7 @@ function demo(mediaBox, pa) {
 	var upLink = document.createElement("a"); 
 	upLink.setAttribute("href", "javascript:void(0);");
 	upLink.setAttribute("class", "btn btn-xs btn-success");
-	upLink.setAttribute("onclick", "doLike(" + pa.id + ")");
+	upLink.setAttribute("onclick", "doLike(" + pa.id + ",'" + pa.title + "','" + pa.content + "','" + pa.linkUrl + "','" + pa.imgUrl + "')");
 	var upI = document.createElement("i"); 
 	upI.setAttribute("id", "u" + pa.id);
 	upI.setAttribute("class", "fui-triangle-up");
