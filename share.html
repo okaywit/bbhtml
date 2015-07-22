@@ -105,7 +105,7 @@
 	<script type="text/javascript" src="js/flat-ui.min.js"></script>
     <script type="text/javascript" src="js/socket.js"></script>
 	<script type="text/javascript">
-		Server.connect("ws://" + host + ":8001/open/share");
+		Server.connect("ws://" + host + ":8001/share");
 		Server.socket.onmessage = function(message) {
 			var data = eval('(' + message.data + ')');
 			if (data["type"] == 100) {
