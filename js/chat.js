@@ -1,4 +1,4 @@
-Server.connect("ws://"+host+":8001/open/chat");
+Server.connect("ws://"+host+":8001/chat");
 
 if (localStorage.fakeName == undefined) {
 	localStorage.fakeName = prompt("请输入一个屌炸天的名称", "");
@@ -9,16 +9,7 @@ if (localStorage.fakeName == undefined) {
 
 Server.socket.onmessage = function(message) {
 	var data = eval('(' + message.data + ')');
-	if (data["type"] == 0) {
-		showError(data["error"]);
-	}
-	if (data["type"] == 2) {
-		showMsg(data["data"]["msg"], data["data"]["fakeName"]);
-	}
-	if (data["type"] == 3) {
-		showAd(data["data"]["title"],data["data"]["content"], data["data"]["linkUrl"],
-				data["data"]["imgUrl"]);
-	}
+	showMsg(data["data"]["msg"], data["data"]["fakeName"]);
 };
 function openAd(title, linkUrl) {
 	window
@@ -123,7 +114,7 @@ function sendText() {
 		return;
 	}
 
-	var paper = '{"mode":3,"chatMessage":{"fakeName":"' + localStorage.fakeName + '","msg":"' + msg + '"}}';
+	var paper = '{"fakeName":"' + localStorage.fakeName + '","msg":"' + msg + '"}';
 	Server.socket.send(paper);
 }
 function demoImg(msg) {

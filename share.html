@@ -27,10 +27,10 @@
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
 	<div class="jumbotron" >
-	  <h2>八牛号外 <small class="text-danger">分享计划!</small></h2>
-	  <p>如果您是一个站长，在为每日网站流量而头疼的话，请来这里，八牛号外是您对外推广宣传的一个平台，分享网站中的优秀信息，提高信息的传播率，将你我的主机连成一片云。</p>
-	  <p class="lead">微博：<a href="http://weibo.com/u/5547700992">@大辉Face</a></p>
-	  <p class="lead">邮箱：<a href="Mailto:sse_wh@163.com">sse_wh@163.com</a></p>
+		<a href="/"><h2>八牛号外 <small class="text-danger">分享计划!</small></h2></a>
+	  	<p>如果您是一个站长，在为每日网站流量而头疼的话，请来这里，八牛号外是您对外推广宣传的一个平台，分享网站中的优秀信息，提高信息的传播率，将你我的主机连成一片云。</p>
+	  	<p class="lead">微博：<a href="http://weibo.com/u/5547700992">@大辉Face</a></p>
+	  	<p class="lead">邮箱：<a href="Mailto:sse_wh@163.com">sse_wh@163.com</a></p>
 	</div>
 	<div class="jumbotron" >
 	  <h2>计划图</h2>
@@ -109,11 +109,11 @@
 		Server.socket.onmessage = function(message) {
 			var data = eval('(' + message.data + ')');
 			if (data["type"] == 100) {
-				alert(data["data"]["success"]);
+				alert(data["message"]);
 				location.href="/index.html";
 			}
 			if (data["type"] == 0) {
-				showError(data["error"]);
+				showError(data["message"]);
 			}
 			
 			//主机列表
@@ -141,7 +141,7 @@
 			var email = document.getElementById("email").value;
 			var path = document.getElementById("path").value;
 			
-			var host = '{"mode":6,"shareHost":{"name":"'+name+'","ip":"'+ip+'","port":"'+port+'","point":"'+point+'","email":"'+email+'","path":"'+path+'"}}'
+			var host = '{"name":"'+name+'","ip":"'+ip+'","port":"'+port+'","point":"'+point+'","email":"'+email+'","path":"'+path+'"}'
 			Server.socket.send(host);
 			
 			return false;

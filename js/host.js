@@ -12,16 +12,11 @@ var id = (function(){
 })();
 Server.connect("ws://"+host+":8001/open/"+id+"");
 
-var i = 0;
-
-if (localStorage.fakeName == undefined) {
-	localStorage.fakeName = prompt("请输入一个屌炸天的名称", "");
-	if (localStorage.fakeName == null || localStorage.fakeName.trim() == "") {
-		localStorage.fakeName = "无名氏";
-	}
-	document.getElementById("contactName").value=localStorage.fakeName;
+if (localStorage.fakeName != undefined) {
+	document.getElementById("name").innerHTML=localStorage.fakeName;
 }
-document.getElementById("contactName").value=localStorage.fakeName;
+
+var i = 0;
 
 function addMedia(obj) {
 	var conditionType = obj.value;
@@ -54,7 +49,7 @@ Server.socket.onmessage = function(message) {
 	var data = eval('(' + message.data + ')');
 	var type = data["type"];
 	if (type == 0) {
-		alert(data["error"]);
+		alert(data["message"]);
 
 	}else if (type == 6) {
 		var dailyMain = document.getElementById("dailyMain");
@@ -112,6 +107,7 @@ Server.socket.onmessage = function(message) {
 
 };
 function goRelease() {
+
 	var title = document.getElementById("title").value;
 	var content = document.getElementById("content").value;
 	var contactName = document.getElementById("contactName").value;
@@ -129,6 +125,8 @@ function goRelease() {
 	}
 	if (contactName.replace(/^ +| +$/g, '') == '') {
 		document.getElementById("contactName").focus();
+		localStorage.fakeName = contactName;
+		document.getElementById("name").innerHTML=localStorage.fakeName;
 		return;
 	}
 
@@ -140,7 +138,6 @@ function goRelease() {
 
 	document.getElementById("title").value = "";
 	document.getElementById("content").value = "";
-	document.getElementById("contactName").value = "";
 	document.getElementById("imgUrl").value = "";
 
 	$('#myModal').modal('hide')
