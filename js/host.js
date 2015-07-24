@@ -14,6 +14,7 @@ Server.connect("ws://"+host+":8001/open/"+id+"");
 
 if (localStorage.fakeName != undefined) {
 	document.getElementById("name").innerHTML=localStorage.fakeName;
+	document.getElementById("contactName").innerHTML=localStorage.fakeName;
 }
 
 var i = 0;
