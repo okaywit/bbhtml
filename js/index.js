@@ -115,15 +115,16 @@ function demoIndex(data){
 	s.appendChild(document.createTextNode(data["data"]["total"]));
 	mediaLi.appendChild(s);
 
-	var mediaDt = document.createElement("dt");
+	/*var mediaDt = document.createElement("dt");
 	var link = document.createElement("a");
 	link.setAttribute("href",pa.linkUrl);
-	var linkcite = document.createElement("cite");
-	linkcite.setAttribute("title",pa.linkUrl);
-	linkcite.appendChild(document.createTextNode(pa.title));
-	link.appendChild(linkcite);
+	link.setAttribute("class","text-info");
+	link.appendChild(document.createTextNode(pa.title));
+	//var linkcite = document.createElement("cite");
+	//linkcite.setAttribute("title",pa.linkUrl);
+	//link.appendChild(linkcite);
 	mediaDt.appendChild(link);
-	mediaLi.appendChild(mediaDt);
+	mediaLi.appendChild(mediaDt);*/
 
 	var mediaDd = document.createElement("dd");
 	var mediadiv = document.createElement("div");
@@ -138,10 +139,19 @@ function demoIndex(data){
 	mediadiv.appendChild(medialeft);
 	var mediaright = document.createElement("div");
 	mediaright.setAttribute("class","media-body");
+
+	var link = document.createElement("a");
+	link.setAttribute("href",pa.linkUrl);
+	link.setAttribute("class","text-info");
 	var content = document.createElement("p");
 	content.setAttribute("class","media-heading");
 	content.appendChild(document.createTextNode(pa.content));
+	link.appendChild(content);
+
 	var hosta = document.createElement("a");
+	hosta.setAttribute("class","text-muted");
+	hosta.appendChild(document.createTextNode("《"+pa.title+"》"));
+	hosta.appendChild(document.createTextNode("  分享自："));
 	var hostcite = document.createElement("cite");
 	if(data["data"]["path"]=="" || data["data"]["path"] == null){
 		hosta.setAttribute("href","/host.html?id=bb");
@@ -152,7 +162,7 @@ function demoIndex(data){
 	}
 	
 	hosta.appendChild(hostcite);
-	mediaright.appendChild(content);
+	mediaright.appendChild(link);
 	mediaright.appendChild(hosta);
 	mediadiv.appendChild(mediaright);
 	mediaDd.appendChild(mediadiv);

@@ -72,7 +72,7 @@ function showMsg(msg, fakeName) {
 	var imgReg = /^\S*.(bmp|jpg|tiff|gif|pcx|tga|exif|fpx|svg|psd|cdr|pcd|dxf|ufo|eps|ai|raw){1}$/;
 	var videoReg = /^\S*.(mp4|mpge4|webm|avi){1}$/;
 	var audioReg = /^\S*.(mp3|ogg|aac){1}$/;
-	var changeName = /^@\S*$/;
+	var changeName = /^#\S*$/;
 
 	
 
@@ -87,8 +87,9 @@ function showMsg(msg, fakeName) {
 		localStorage.fakeName = msg.substring(1, msg.length);
 		return;
 	} else {
-		var small = document.createElement("p");
-		small.appendChild(document.createTextNode(msg));
+		var small = document.createElement("div");
+		small.innerHTML = msg;
+		//.appendChild(document.createTextNode(msg));
 		content.appendChild(small);
 	}
 	innerDiv.appendChild(content);

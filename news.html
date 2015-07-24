@@ -1,9 +1,15 @@
-<script type="text/javascript" src="js/socket.js"></script>
-<script type="text/javascript">
-	
-	Server.connect("ws://localhost:8001/open/news");
-	Server.socket.onmessage=function(message){
-		alert(message.data);
-		location.href = message.data;
-	}
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		var ac = window.history;
+		for(var a =0 ; a<ac.length;a++){
+			console.log(ac[a]);
+		}
+		console.log(ac.length);
+	</script>
+</body>
+</html>
