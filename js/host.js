@@ -176,7 +176,10 @@ Paper.prototype.packTop100 = function() {
 	demo(mediaBox, this);
 
 };
-function doLike(id,title,content,linkUrl,imgUrl) {
+function doLike(id,linkUrl,imgUrl) {
+	var title = document.getElementById("t_"+id).innerHTML;
+	var content = document.getElementById("c_"+id).innerHTML;
+
 	if (localStorage == undefined || localStorage == "") {
 		return;
 	}
@@ -257,7 +260,7 @@ function demo(mediaBox, pa) {
 	var upLink = document.createElement("a"); 
 	upLink.setAttribute("href", "javascript:void(0);");
 	upLink.setAttribute("class", "btn btn-xs btn-success");
-	upLink.setAttribute("onclick", "doLike(" + pa.id + ",'" + pa.title + "','" + pa.content + "','" + pa.linkUrl + "','" + pa.imgUrl + "')");
+	upLink.setAttribute("onclick", "doLike(" + pa.id + ",'" + pa.linkUrl + "','" + pa.imgUrl + "')");
 	var upI = document.createElement("i"); 
 	upI.setAttribute("id", "u" + pa.id);
 	upI.setAttribute("class", "fui-triangle-up");
@@ -290,6 +293,7 @@ function demo(mediaBox, pa) {
 	conntentDiv.setAttribute("class", "col-md-11 col-xs-12");
 	var p = document.createElement("p");
 	p.setAttribute("style", "text-overflow:ellipsis;white-space:nowrap;overflow:hidden");
+	p.setAttribute("id", "c_"+pa.id);
 	p.appendChild(document.createTextNode(pa.content));
 	
 	var footer = document.createElement("small");
@@ -302,6 +306,7 @@ function demo(mediaBox, pa) {
 	link.setAttribute("target", "_blank");
 	var cite = document.createElement("cite");
 	cite.setAttribute("title", pa.linkUrl);
+	cite.setAttribute("id", "t_"+pa.id);
 	cite.appendChild(document.createTextNode(pa.title+"  "));
 	link.appendChild(cite);
 	footer.appendChild(link);
