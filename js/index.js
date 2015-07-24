@@ -42,6 +42,7 @@ function demoHost(data){
 	var li = document.createElement("li");
 	var a = document.createElement("a");
 	a.setAttribute("href","/host.html?id="+data["path"]+"");
+	a.setAttribute("target","_blank");
 	a.setAttribute("class","btn btn-primary btn-sm col-md-12");
 
 	if(data["status"]==0){
