@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>八牛号外 - 分享网络上的那些事</title>
+    <meta name="keywords" content="网络,广告,网络媒体,社交,微信,微博,视频,音频,图片,reddit,www.reddit.com" />
+    <meta name="description" content="八牛号外是一个共享讯息的公共平台，分享网络上的那些事。" />
+    <meta content="大辉Face 王辉" name="author">
+
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link href="css/flat-ui.min.css" rel="stylesheet">
+	<link href="img/favicon.ico" rel="icon">
+	<link href="css/main.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/normalize.css">
+	<script src="js/modernizr-2.6.2.min.js"></script>
+</head>
+<body>
+	<div class="progress">
+		<div id="bar" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+	    	<span class="sr-only">0%</span>
+	 	</div>
+	</div>
+	<div id="error"></div>
+<script type="text/javascript">
+	var bar = document.getElementById("bar");
+	function showProgress(i){
+		bar.setAttribute("style","width:"+i+"%");
+	}
+
+	showProgress(10);
+	var param = window.location.search;
+	showProgress(20);
+	var paramReg = /^(\?url\=){1}\S{3,}$/;
+	showProgress(30);
+	if(paramReg.test(param)){
+		showProgress(50);
+		var url = param.substring(5, param.length);
+		showProgress(70);
+		if( /^(http){1}\S+$/.test(url)){
+			showProgress(100);
+			location.href = url;
+		}else{
+			location.href = "http://"+url;
+		}
+	}else{
+		document.getElementById("error").innerHTML = '参数错误，3秒后跳转到首页，<a href="/">首页</a>';
+		setTimeout("location.href='/'",3000);
+	}
+
+</script>
+</body>
+</html>
