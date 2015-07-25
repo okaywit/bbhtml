@@ -10,12 +10,6 @@ var id = (function(){
 		return "index";
 	}
 })();
-Server.connect("ws://"+host+":8001/open/"+id+"");
-
-if (localStorage.fakeName != undefined) {
-	document.getElementById("name").innerHTML=localStorage.fakeName;
-	document.getElementById("contactName").innerHTML=localStorage.fakeName;
-}
 
 var i = 0;
 
@@ -46,67 +40,6 @@ function addMedia(obj) {
 	}
 }
 
-Server.socket.onmessage = function(message) {
-	var data = eval('(' + message.data + ')');
-	var type = data["type"];
-	if (type == 0) {
-		alert(data["message"]);
-
-	}else if (type == 6) {
-		var dailyMain = document.getElementById("dailyMain");
-		var a = document.createElement("a")
-		a.setAttribute("href", data["data"]["linkUrl"]);
-		var strong = document.createElement("strong");
-		strong.appendChild(document.createTextNode(data["data"]["title"]));
-		var br = document.createElement("br");
-		var img =  document.createElement("img");
-		img.setAttribute("src", data["data"]["imgUrl"]);
-		
-		a.appendChild(strong);
-		a.appendChild(br);
-		a.appendChild(img);
-		dailyMain.appendChild(a);
-		
-		
-	} else if (type == 8) {
-
-
-	} else if (type == 1 || type == 4 || type == 5) {
-		
-		var pa = new Paper();
-		pa.id = data["data"]["id"]["$numberLong"];
-		if (pa.id == undefined || pa.id == Object) {
-			pa.id = data["data"]["id"];
-		}
-		pa.title = data["data"]["title"];
-		pa.content = data["data"]["content"];
-		pa.contactName = data["data"]["contactName"];
-		pa.contactTel = data["data"]["contactTel"];
-		pa.tag = data["data"]["tag"];
-		pa.goodCount = data["data"]["goodCount"]["$numberLong"];
-		if (pa.goodCount === undefined) {
-			pa.goodCount = 0;
-		}
-		pa.badCount = data["data"]["badCount"]["$numberLong"];
-		if (pa.badCount === undefined) {
-			pa.badCount = 0;
-		}
-		pa.imgUrl = data["data"]["imgUrl"];
-		pa.linkUrl = data["data"]["linkUrl"];
-
-		if (type == 1) {
-			pa.packIndex();
-		} else if (type == 4) {
-			pa.packYesterday();
-		} else if (type == 5) {
-			pa.packTop100();
-		} else {
-			pa.packIndex();
-		}
-		i++;
-	}
-
-};
 function goRelease() {
 
 	var title = document.getElementById("title").value;
@@ -243,7 +176,8 @@ function demo(mediaBox, pa) {
 	mediaDiv.setAttribute("class", "row");
 	mediaDiv.setAttribute("id", pa.id);
 
-	if (this.imgUrl != undefined && pa.imgUrl.trim() != "") {
+	var pic = "http://"+host+"/img/bbcow.png";
+	if (pa.imgUrl != undefined && pa.imgUrl.trim() != "") {
 		var imgDiv = document.createElement("div");
 		imgDiv.setAttribute("class", "col-md-1 col-xs-12 text-center");
 		var img = document.createElement("img");
@@ -253,6 +187,7 @@ function demo(mediaBox, pa) {
 		imgDiv.appendChild(img);
 
 		mediaDiv.appendChild(imgDiv);
+		pic = pa.imgUrl;
 	}
 	var button = document.createElement("div"); 
 	button.setAttribute("class", "btn-group");
@@ -280,7 +215,12 @@ function demo(mediaBox, pa) {
 	button.appendChild(downLink);
 	
 	var shareLink = document.createElement("a"); 
-	shareLink.setAttribute("href", "http://service.weibo.com/share/share.php?url=http%3A%2F%2F"+host+"%2F&type=button&language=zh_cn&appkey=4284001649&title="+pa.content+"&pic=http%3A%2F%2F"+host+"%2Fimg%2Fbbcow.png&searchPic=true&style=simple");
+	var url = "http://"+host;
+	if(pa.linkUrl != undefined && pa.linkUrl.trim() != ""){
+		url = url+"/middle.html?url="+pa.linkUrl;
+	}
+	
+	shareLink.setAttribute("href", "http://service.weibo.com/share/share.php?url="+encodeURIComponent(url)+"&type=button&language=zh_cn&appkey=4284001649&title="+pa.content+"&pic="+encodeURIComponent(pic)+"&searchPic=true&style=simple");
 	shareLink.setAttribute("class", "btn btn-xs btn-danger ");
 	shareLink.setAttribute("target", "_blank");
 	var shareI = document.createElement("i"); 
@@ -302,8 +242,8 @@ function demo(mediaBox, pa) {
 	footer.appendChild(strong);
 	footer.appendChild(document.createTextNode(" 发表于 "));
 	var link = document.createElement("a");
-	link.setAttribute("href", pa.linkUrl);
-	link.setAttribute("target", "_blank");
+	link.setAttribute("href", url);
+	// link.setAttribute("target", "_blank");
 	var cite = document.createElement("cite");
 	cite.setAttribute("title", pa.linkUrl);
 	cite.setAttribute("id", "t_"+pa.id);
@@ -321,10 +261,70 @@ function demo(mediaBox, pa) {
 	mediaBox.appendChild(media);
 }
 
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "//hm.baidu.com/hm.js?f3a7b03e683b3dc0971832145b7fadfd";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
+Server.connect("ws://"+host+":8001/open/"+id+"");
+Server.socket.onmessage = function(message) {
+	var data = eval('(' + message.data + ')');
+	var type = data["type"];
+	if (type == 0) {
+		alert(data["message"]);
+
+	}else if (type == 6) {
+		var dailyMain = document.getElementById("dailyMain");
+		var a = document.createElement("a")
+		a.setAttribute("href", data["data"]["linkUrl"]);
+		var strong = document.createElement("strong");
+		strong.appendChild(document.createTextNode(data["data"]["title"]));
+		var br = document.createElement("br");
+		var img =  document.createElement("img");
+		img.setAttribute("src", data["data"]["imgUrl"]);
+		
+		a.appendChild(strong);
+		a.appendChild(br);
+		a.appendChild(img);
+		dailyMain.appendChild(a);
+		
+		
+	} else if (type == 8) {
+
+
+	} else if (type == 1 || type == 4 || type == 5) {
+		
+		var pa = new Paper();
+		pa.id = data["data"]["id"]["$numberLong"];
+		if (pa.id == undefined || pa.id == Object) {
+			pa.id = data["data"]["id"];
+		}
+		pa.title = data["data"]["title"];
+		pa.content = data["data"]["content"];
+		pa.contactName = data["data"]["contactName"];
+		pa.contactTel = data["data"]["contactTel"];
+		pa.tag = data["data"]["tag"];
+		pa.goodCount = data["data"]["goodCount"]["$numberLong"];
+		if (pa.goodCount === undefined) {
+			pa.goodCount = 0;
+		}
+		pa.badCount = data["data"]["badCount"]["$numberLong"];
+		if (pa.badCount === undefined) {
+			pa.badCount = 0;
+		}
+		pa.imgUrl = data["data"]["imgUrl"];
+		pa.linkUrl = data["data"]["linkUrl"];
+
+		if (type == 1) {
+			pa.packIndex();
+		} else if (type == 4) {
+			pa.packYesterday();
+		} else if (type == 5) {
+			pa.packTop100();
+		} else {
+			pa.packIndex();
+		}
+		i++;
+	}
+
+};
+
+if (localStorage.fakeName != undefined) {
+	document.getElementById("name").innerHTML=localStorage.fakeName;
+	document.getElementById("contactName").value=localStorage.fakeName;
+}

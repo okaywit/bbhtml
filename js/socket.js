@@ -2,7 +2,9 @@
  * Created by Administrator on 2015/6/18.
  */
 var Server = {};
+var isGo = true;
 Server.socket = null;
+var host = window.location.host;
 
 Server.connect = (function(host){
 
@@ -11,19 +13,29 @@ Server.connect = (function(host){
     	
     };
     Server.socket.onmessage=function(message){
-        //showMsg(message);
+        
     };
     Server.socket.onclose=function(){
-         showError("服务器断开，请刷新页面");
+        showError();
     };
     Server.socket.onerror=function(e){
-        showError("出现异常，请刷新页面");
+        showError();
     };
 });
 
-var host = window.location.host;
-
-function showError(error){
-    location.href='/error.html';
+window.onbeforeunload = onbeforeunload_handler;
+window.onunload = onunload_handler;
+function onbeforeunload_handler(){
+    isGo = false;
+}
+ 
+function onunload_handler(){
+    isGo = false;
 }
 
+
+function showError(){
+    if(isGo){
+        location.href='/error.html';
+    }
+}

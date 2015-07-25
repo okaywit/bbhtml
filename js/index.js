@@ -1,26 +1,12 @@
-Server.connect("ws://"+host+":8001/index");//
 var i = 0;
 function changeName(){
-	localStorage.fakeName = document.getElementById("personName").value;
-	document.getElementById("name").innerHTML=localStorage.fakeName;
+	var newName = document.getElementById("personName").value;
+	if(newName!=undefined && newName!="" && newName.trim()!=""){
+		localStorage.fakeName = newName;
+		document.getElementById("name").innerHTML=localStorage.fakeName;
+	}
 }
 
-Server.socket.onmessage = function(message) {
-	var data = eval('(' + message.data + ')');
-	if (data["type"] == 0) {
-		 showError(data["message"]);
-	} else if (data["type"] == 1 ) {
-		demoIndex(data);
-		i++;
-	}  else if (data["type"] == 2) {
-		demoLog(data["data"]["fakeName"],data["data"]["msg"]);
-	} else if (data["type"] == 3) {
-		demoLog(data["data"]["paper"]["contactName"],data["data"]["paper"]["title"]);
-	} else if (data["type"] == 7) {
-		demoHost(data["data"]);
-	}
-
-};
 function Paper() {
 	this.id;
 	this.title;
@@ -59,29 +45,11 @@ function demoHost(data){
 	a.appendChild(span);
 	li.appendChild(a);
 	hostBox.appendChild(li);
-
-
-	/*var hostButton = document.createElement("button");
-	hostButton.setAttribute("class", "btn btn-info btn-block");
-	hostButton.setAttribute("onclick", "location.href='/host.html?id="+data["path"]+"'");
-	if(data["status"]==0){
-		hostButton.setAttribute("disabled", "disabled");
-		hostButton.appendChild(document.createTextNode(data["name"]+"(未启用)"));
-	}else{
-		hostButton.appendChild(document.createTextNode(data["name"]));
-	}
-	
-	var span = document.createElement("span");
-	span.setAttribute("class","navbar-new");
-	span.appendChild(document.createTextNode(data["clickCount"]));
-	hostButton.appendChild(span);
-
-	hostBox.appendChild(hostButton);*/
 }
 function demoLog(name,message){
 	var media = document.getElementById("media_log");
 	var count = document.getElementById("log_count");
-	media.innerHTML =name+" ："+message;
+	media.innerHTML = media.innerHTML + "<div  style='text-overflow:ellipsis;white-space:nowrap;overflow:hidden'><cite title='"+message+"'>"+ name+" ："+message+"</cite></div>";
 	count.innerHTML = parseInt(count.innerHTML) + 1;
 }
 function demoIndex(data){
@@ -103,9 +71,9 @@ function demoIndex(data){
 		pa.imgUrl = "img/bbcow.png";
 	}
 	pa.linkUrl = data["data"]["linkUrl"];
-	if(pa.linkUrl=="" || pa.linkUrl==null){
-		pa.linkUrl = "#";
-	}
+	// if(pa.linkUrl=="" || pa.linkUrl==null){
+	// 	pa.linkUrl = "#";
+	// }
 
 	var media = document.getElementById("media_ol");
 	var mediaLi = document.createElement("li");
@@ -115,17 +83,6 @@ function demoIndex(data){
 	s.setAttribute("class","navbar-new");
 	s.appendChild(document.createTextNode(data["data"]["total"]));
 	mediaLi.appendChild(s);
-
-	/*var mediaDt = document.createElement("dt");
-	var link = document.createElement("a");
-	link.setAttribute("href",pa.linkUrl);
-	link.setAttribute("class","text-info");
-	link.appendChild(document.createTextNode(pa.title));
-	//var linkcite = document.createElement("cite");
-	//linkcite.setAttribute("title",pa.linkUrl);
-	//link.appendChild(linkcite);
-	mediaDt.appendChild(link);
-	mediaLi.appendChild(mediaDt);*/
 
 	var mediaDd = document.createElement("dd");
 	var mediadiv = document.createElement("div");
@@ -142,7 +99,7 @@ function demoIndex(data){
 	mediaright.setAttribute("class","media-body");
 
 	var link = document.createElement("a");
-	link.setAttribute("href",pa.linkUrl);
+	link.setAttribute("href","/middle.html?url="+pa.linkUrl);
 	link.setAttribute("class","text-info");
 	var content = document.createElement("p");
 	content.setAttribute("class","media-heading");
@@ -163,7 +120,12 @@ function demoIndex(data){
 	}
 	
 	hosta.appendChild(hostcite);
-	mediaright.appendChild(link);
+	if(pa.linkUrl==undefined || pa.linkUrl==null || pa.linkUrl ==""){
+		mediaright.appendChild(content);
+	}else{
+		mediaright.appendChild(link);
+	}
+	
 	mediaright.appendChild(hosta);
 	mediadiv.appendChild(mediaright);
 	mediaDd.appendChild(mediadiv);
@@ -172,3 +134,22 @@ function demoIndex(data){
 	media.appendChild(mediaLi);
 
 }
+
+
+Server.connect("ws://"+host+":8001/index");
+Server.socket.onmessage = function(message) {
+	var data = eval('(' + message.data + ')');
+	if (data["type"] == 0) {
+		 showError(data["message"]);
+	} else if (data["type"] == 1 ) {
+		demoIndex(data);
+		i++;
+	}  else if (data["type"] == 2) {
+		demoLog(data["data"]["fakeName"],data["data"]["msg"]);
+	} else if (data["type"] == 3) {
+		demoLog(data["data"]["paper"]["contactName"],data["data"]["paper"]["title"]);
+	} else if (data["type"] == 7) {
+		demoHost(data["data"]);
+	}
+
+};

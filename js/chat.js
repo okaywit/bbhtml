@@ -1,16 +1,10 @@
-Server.connect("ws://"+host+":8001/chat");
-
 if (localStorage.fakeName == undefined) {
-	localStorage.fakeName = prompt("请输入一个屌炸天的名称", "");
-	if (localStorage.fakeName == null || localStorage.fakeName.trim() == "") {
+	localStorage.fakeName = prompt("请输入一个代号", "");
+	if (localStorage.fakeName == undefined ||localStorage.fakeName == null || localStorage.fakeName.trim() == "") {
 		localStorage.fakeName = "无名氏";
 	}
 }
 
-Server.socket.onmessage = function(message) {
-	var data = eval('(' + message.data + ')');
-	showMsg(data["data"]["msg"], data["data"]["fakeName"]);
-};
 function openAd(title, linkUrl) {
 	window
 			.open(
@@ -114,8 +108,8 @@ function sendText() {
 		Server.socket.send(paper);
 		return;
 	}
+	var paper = '{"mode":3,"fakeName":"'+ localStorage.fakeName + '","msg":"' + msg + '"}';
 
-	var paper = '{"fakeName":"' + localStorage.fakeName + '","msg":"' + msg + '"}';
 	Server.socket.send(paper);
 }
 function demoImg(msg) {
@@ -157,3 +151,9 @@ function checkCode(e) {
 		document.getElementById("message").value = "";
 	}
 }
+
+Server.connect("ws://"+host+":8001/chat");
+Server.socket.onmessage = function(message) {
+	var data = eval('(' + message.data + ')');
+	showMsg(data["data"]["msg"], data["data"]["fakeName"]);
+};
