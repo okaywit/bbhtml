@@ -44,8 +44,9 @@
 		var url = param.substring(5, param.length);
 		showProgress(70);
 		if( /^(http){1}\S+$/.test(url)){
-			showProgress(100);
+			showProgress(90);
 			location.href = url;
+			showProgress(100);
 		}else{
 			location.href = "http://"+url;
 		}
