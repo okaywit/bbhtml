@@ -60,7 +60,7 @@ function demoIndex(data){
 	}
 	pa.title = data["data"]["title"];
 	pa.content = data["data"]["content"];
-	pa.goodCount = data["data"]["total"] | data["data"]["goodCount"];
+	pa.goodCount = data["data"]["total"] | data["data"]["goodCount"]["$numberLong"];
 	if (pa.goodCount === undefined) {
 		pa.goodCount = 0;
 	}
