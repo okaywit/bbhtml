@@ -60,7 +60,7 @@ function demoIndex(data){
 	}
 	pa.title = data["data"]["title"];
 	pa.content = data["data"]["content"];
-	pa.goodCount = data["data"]["total"];
+	pa.goodCount = data["data"]["total"] | data["data"]["goodCount"];
 	if (pa.goodCount === undefined) {
 		pa.goodCount = 0;
 	}
@@ -81,7 +81,7 @@ function demoIndex(data){
 
 	var s = document.createElement("span");
 	s.setAttribute("class","navbar-new");
-	s.appendChild(document.createTextNode(data["data"]["total"]));
+	s.appendChild(document.createTextNode(pa.goodCount));
 	mediaLi.appendChild(s);
 
 	var mediaDd = document.createElement("dd");

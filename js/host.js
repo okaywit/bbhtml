@@ -245,7 +245,7 @@ function demo(mediaBox, pa) {
 	link.setAttribute("href", url);
 	// link.setAttribute("target", "_blank");
 	var cite = document.createElement("cite");
-	cite.setAttribute("title", pa.linkUrl);
+	cite.setAttribute("title", url);
 	cite.setAttribute("id", "t_"+pa.id);
 	cite.appendChild(document.createTextNode(pa.title+"  "));
 	link.appendChild(cite);
