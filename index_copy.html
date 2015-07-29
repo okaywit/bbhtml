@@ -6,13 +6,13 @@
 <html manifest="demo.appcache" xmlns:wb="http://open.weibo.com/wb">
 <head lang="en">
     <meta charset="UTF-8">
-    <meta http-equiv="content-language" content="zh-CN" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>八牛号外 - 微媒体</title>
-    <meta name="keywords" content="八牛,微媒体,八牛网,八牛号外,微博" />
+    <meta name="keywords" content="八牛,微媒体,八牛网,八牛号外" />
     <meta name="description" content="八牛号外是一个共享讯息的微媒体，分享网络上的那些事。" />
     <meta content="大辉Face 王辉" name="author">
+    <meta http-equiv="content-language" content="zh-CN" />
 
 	<meta property="og:type" content="webpage" />
 	<meta property="og:url" content="http://www.bbcow.com" />
@@ -28,6 +28,8 @@
 	<link href="css/main.css" rel="stylesheet">
 	<link rel="stylesheet" href="http://7xkefw.com1.z0.glb.clouddn.com/normalize.css">
 
+    <script type="text/javascript" src="js/socket.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
     <!--[if lt IE 7]>
@@ -74,25 +76,17 @@
 				</div>
 				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
 					<dl>
-						<ol id="media_ol" class="list-group">
-							<span class="hidden">#1</span>
-<li class="list-group-item"><span class="navbar-new">22</span><dd><div class="media"><div class="media-left"><img src="img/bbcow.png" width="64px" height="64px"></div><div class="media-body"><p class="media-heading">啊啊啊啊啊啊啊啊</p><a class="text-muted" href="/host.html?id=bb">《啊啊啊啊啊啊啊啊  》  分享自：  <cite>八牛号外</cite></a></div></div></dd></li><li class="list-group-item"><span class="navbar-new">1</span><dd><div class="media"><div class="media-left"><img src="http://ww1.sinaimg.cn/thumbnail/727440b5jw1eugg4ozdwsg20b408cb29.gif" width="64px" height="64px"></div><div class="media-body"><p class="media-heading">“EVA当年为什么被称为神作？”“因为很多人都看不懂。。。”_(:з」∠)_ net</p><a class="text-muted" href="/host.html?id=bb">《“EVA当年为什么被称为神作？”“因为很  》  分享自：  <cite>八牛号外</cite></a></div></div></dd></li><li class="list-group-item"><span class="navbar-new">0</span><dd><div class="media"><div class="media-left"><img src="img/bbcow.png" width="64px" height="64px"></div><div class="media-body"><p class="media-heading">啊啊啊</p><a class="text-muted" href="/host.html?id=bb">《啊啊啊啊》  分享自：  <cite>八牛</cite></a></div></div></dd></li><li class="list-group-item"><span class="navbar-new">39</span><dd><div class="media"><div class="media-left"><img src="http://ww1.sinaimg.cn/thumbnail/727440b5jw1eugg4ozdwsg20b408cb29.gif" width="64px" height="64px"></div><div class="media-body"><p class="media-heading">“EVA当年为什么被称为神作？”“因为很多人都看不懂。。。”_(:з」∠)_ net</p><a class="text-muted" href="/host.html?id=bb">《“EVA当年为什么被称为神作？”“因为很》  分享自：  <cite>八牛</cite></a></div></div></dd></li><li class="list-group-item"><span class="navbar-new">34</span><dd><div class="media"><div class="media-left"><img src="http://ww1.sinaimg.cn/thumbnail/727440b5jw1eugg4ozdwsg20b408cb29.gif" width="64px" height="64px"></div><div class="media-body"><p class="media-heading">“EVA当年为什么被称为神作？”“因为很多人都看不懂。。。”_(:з」∠)_ net</p><a class="text-muted" href="/host.html?id=bb">《“EVA当年为什么被称为神作？”“因为很》  分享自：  <cite>八牛</cite></a></div></div></dd></li>						</ol>
+						<ol id="media_ol" class="list-group">#content</ol>
 					</dl>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
 				<br/>
-				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 share"  role="main">
 				<!-- 主机 -->
+				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 share"  role="main">
 		            <ul id="media_host_box">
-		            	<li><strong>频道</strong></li>
-		            	<span class="hidden">#2</span>
-<li><a href="/host.html?id=bb" class="btn btn-primary btn-sm col-md-12">八牛号外<span class="navbar-new">193</span></a></li><li><a href="/host.html?id=chat" class="btn btn-primary btn-sm col-md-12">google<span class="navbar-new">6</span></a></li><li><a href="/host.html?id=share" class="btn btn-primary btn-sm col-md-12">google<span class="navbar-new">0</span></a></li>		            </ul>
-				<!-- 静态页面 -->
-		            <ul id="media_page_box">
-		            	<li><strong>每日TOP5</strong></li>
-		            	<span class="hidden">#3</span>
-<li><a href="/page/2015-07-29.html" class="btn btn-link btn-sm col-md-12">2015-07-29.html</a></li>		            </ul>
+		            	<li><strong>频道</strong></li>#hosts
+		            </ul>
 				</div>
 			</div>
 		</div>

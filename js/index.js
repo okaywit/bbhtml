@@ -1,11 +1,4 @@
 var i = 0;
-function changeName(){
-	var newName = document.getElementById("personName").value;
-	if(newName!=undefined && newName!="" && newName.trim()!=""){
-		localStorage.fakeName = newName;
-		document.getElementById("name").innerHTML=localStorage.fakeName;
-	}
-}
 
 function Paper() {
 	this.id;
