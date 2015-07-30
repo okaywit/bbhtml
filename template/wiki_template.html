@@ -3,16 +3,16 @@
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<html manifest="demo.appcache" xmlns:wb="http://open.weibo.com/wb">
+<html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta http-equiv="content-language" content="zh-CN" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>八牛号外 - 微媒体</title>
-    <meta name="keywords" content="八牛,微媒体,八牛网,八牛号外,微博" />
+    <title>wiki - 八牛号外</title>
+    <meta name="keywords" content="八牛,微媒体,八牛网,八牛号外,wiki" />
     <meta name="description" content="八牛号外是一个共享讯息的微媒体，分享网络上的那些事。" />
     <meta content="大辉Face 王辉" name="author">
+    <meta http-equiv="content-language" content="zh-CN" />
 
 	<meta property="og:type" content="webpage" />
 	<meta property="og:url" content="http://www.bbcow.com" />
@@ -34,7 +34,7 @@
         <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
     <header>
-		<nav class="navbar navbar-default navbar-static-top">
+		<nav class="navbar navbar-default navbar-fixed-top">
 	    	<div class="container">
 			    <!-- Brand and toggle get grouped for better mobile display -->
 			    <div class="navbar-header">
@@ -47,6 +47,7 @@
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">首页</a></li>
 						<li><a href="chat.html" target="_blank">牛群聊天</a></li>
+						<li><a href="wiki.html" target="_blank">八牛WIKI</a></li>
 						<li><a href="share.html">分享计划<span class="navbar-new">1</span></a></li>
 						<li>
 							<a  href="https://api.weibo.com/oauth2/authorize?client_id=1111293984&response_type=code&redirect_uri=http://www.bbcow.com/login.html">
@@ -56,7 +57,7 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<script type="text/javascript">
-								if(localStorage.fakeName != undefined && localStorage.fakeName != null && localStorage.fakeName.trim() != ""){
+								if(localStorage.fakeName != undefined && localStorage.fakeName.trim() != ""){
 									document.write('<li><p class="navbar-text navbar-right">代号：<strong id="name">'+localStorage.fakeName+'</strong></p></li>');
 								}
 			        			document.write('<li><a href="javascript:void(0);"  data-toggle="modal" data-target="#myModal">点击输入代号<span class="navbar-unread">1</span></a></li>');
@@ -66,67 +67,21 @@
 			</div>
 	    </nav>
     </header>
-    <div class="container-fluid">	
+    <div class="container-fluid">
+    	<div class="row">
+	    	<script type="text/javascript">
+			var sogou_ad_id=457190;
+			var sogou_ad_height=90;
+			var sogou_ad_width=728;
+			</script>
+			<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+    	</div>	
 	    <div class="row">	
-			<div class="col-lg-9 col-md-9 col-xs-12 col-sm-12">
-				<!-- 广告 -->
-				<div id="ads" >
-				</div>
-				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
-					<dl>
-						<ol id="media_ol" class="list-group">
-							<span class="hidden">#1</span>
-						</ol>
-					</dl>
-				</div>
-			</div>
-			<div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
-				<br/>
-				<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12 share"  role="main">
-				<!-- 主机 -->
-		            <ul id="media_host_box">
-		            	<li><strong>频道</strong></li>
-		            	<span class="hidden">#2</span>
-		            </ul>
-				<!-- 静态页面 -->
-		            <ul id="media_page_box">
-		            	<li><strong>每日TOP5</strong></li>
-		            	<span class="hidden">#3</span>
-		            </ul>
-				</div>
+			<div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+				<h1>八牛WIKI<small>内容来源于维基百科</small></h1>
+				<span class="hidden">#1</span>
 			</div>
 		</div>
-		<!-- 消息展示栏 -->
-		<div class="navbar navbar-fixed-bottom col-lg-3 col-lg-offset-9 col-md-3 col-md-offset-9 col-sm-12 col-xs-12" >
-			<a class="btn btn-info btn-sm  col-md-12" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-				<span class="navbar-new" id="log_count">0</span>Message
-			</a>
-			<div class="collapse" id="collapseExample">
-				<div class="well" id="media_log" style="height:200px; overflow:auto;text-overflow:ellipsis;">
-			    	
-				</div>
-			</div>
-		</div>
-
-		<!-- Button trigger modal -->
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  	<div class="modal-dialog" role="document">
-			  	<form method="post">
-				    <div class="modal-content">
-				      	<div class="modal-header">
-				        	<h4 class="modal-title" id="myModalLabel">个人代号</h4>
-				      	</div>
-				      	<div class="modal-body">
-							<input type="text" id="personName"  class="form-control" placeholder="请输入该浏览器下个人代号名称"/> 
-						</div>
-				      	<div class="modal-footer">
-				        	<button type="button" class="btn btn-danger" onclick="changeName()" data-dismiss="modal">完成</button>
-				      	</div>
-				    </div>
-			    </form>
-		  	</div>
-		</div>          
 	</div>
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
     <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
@@ -135,15 +90,5 @@
     <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 	<script src="http://7xkefw.com1.z0.glb.clouddn.com/modernizr-2.6.2.min.js"></script>
     <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1255890152'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255890152%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-    <script type="text/javascript">
-    	
-		function changeName(){
-			var newName = document.getElementById("personName").value;
-			if(newName!=undefined && newName!="" && newName.trim()!=""){
-				localStorage.fakeName = newName;
-				document.getElementById("name").innerHTML=localStorage.fakeName;
-			}
-		}
-    </script>
 </body>
 </html>
