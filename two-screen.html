@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html >
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-language" content="zh-CN" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>八牛号外 - 微媒体</title>
+    <meta name="keywords" content="八牛分屏,微媒体,八牛网,八牛号外,微博,wiki" />
+    <meta name="description" content="八牛分屏,只为改变生活！" />
+    <meta content="大辉Face 王辉" name="author">
+
+	<meta property="og:type" content="webpage" />
+	<meta property="og:url" content="http://www.bbcow.com" />
+	<meta property="og:title" content="八牛号外 - 微媒体" />
+	<meta property="og:description" content="八牛号外是一个共享讯息的微媒体，分享网络上的那些事。" />
+	<meta property="og:image" content="http://www.bbcow.com/img/bbcow.png" />
+        
+
+	<!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+	<link href="img/favicon.ico" rel="icon">
+	<style type="text/css" media="screen">
+		body{  
+		    overflow-x: hidden;  
+		    overflow-y: hidden;  
+		} 
+	</style>
+</head>
+<body class="container-fluid">
+    <!--[if lt IE 7]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="row">
+    	<!-- 左视窗 -->
+	    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 embed-responsive embed-responsive-16by9" id="leftView" >
+			<iframe class="embed-responsive-item" id="left"  src="http://www.bbcow.com/chat.html"></iframe>
+		</div>
+    	<!-- 右视窗 -->
+	    <div class="col-lg-6 col-md-6 col-xs-6 col-sm-6 embed-responsive embed-responsive-16by9" id="rightView" >
+			<iframe class="embed-responsive-item" src="http://www.bbcow.com"></iframe>
+		</div>
+    </div>
+
+    <!-- 消息展示栏 -->
+	<div class="navbar navbar-fixed-top col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+		<div class="row collapse  well" id="collapseExample">
+			<form action="test.html" method="get" accept-charset="utf-8">
+	            <div class="input-group col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-xs-6 col-sm-6">
+	                <input type="text" class="form-control input-lg" name="leftUrl" id="leftUrl" value="" placeholder="左视窗">
+	                <span class="input-group-btn">
+				        <button class="btn btn-default btn-lg" onclick="flushLeft(this)" type="button">Go!</button>
+				    </span>
+	            </div>
+	            <div class="input-group col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-xs-6 col-sm-6">
+	                <input type="text" class="form-control input-lg " name="rightView" id="rightUrl" value="" placeholder="右视窗">
+	                <span class="input-group-btn">
+				        <button class="btn btn-default btn-lg" onclick="flushRight(this)" type="button">Go!</button>
+				    </span>
+	            </div>
+	            <div class="form-group col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-xs-6 col-sm-6" style="display:block">
+	                <div class="checkbox">
+	                    <label class="input-lg">
+	                      <input type="checkbox" class="" name="" value=""> 分享
+	                    </label>
+	                </div>
+	            </div>
+	        </form>
+		</div>
+		<div class="row">
+			<a class="btn btn-info btn-lg col-lg-offset-11 col-md-offset-11 col-lg-1 col-md-1 col-sx-12 col-sm-12" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+				视窗切换
+			</a>
+		</div>
+	</div>
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+    	var param = window.location.search;
+    	var lu = param.substring(10,param.indexOf("&right"));
+    	var ru = param.substring(param.indexOf("&right")+11);
+
+    	if(lu != undefined && lu.trim() != ""){
+			document.getElementById('leftUrl').value = decodeURIComponent(lu);
+			console.log(decodeURIComponent(lu))
+			flushLeft(null);
+    	}
+    	if(ru != undefined && ru.trim() != ""){
+			document.getElementById('rightUrl').value = decodeURIComponent(ru);
+			flushRight(null);
+    	}
+
+    	function flushLeft(obj){
+    		var leftUrl = document.getElementById('leftUrl').value;
+    		//删除前元素
+			var view = document.getElementById('leftView');
+    		while(view.hasChildNodes()){
+    			view.removeChild(view.firstChild);
+    		}
+    		//匹配url
+			var reg = /^http\S*$/;
+    		if(reg.test(leftUrl)){
+				var html = document.createElement("iframe");
+    			html.setAttribute("class","embed-responsive-item");
+    			html.setAttribute("src",leftUrl);
+    			view.appendChild(html);
+    		}else{
+    			view.innerHTML = leftUrl;
+    		}
+
+    		if(leftUrl!=undefined && leftUrl!=null && leftUrl.trim() != ""){
+                localStorage.url = localStorage.url+","+ leftUrl ;
+            }
+
+    	}
+    	function flushRight(obj){
+    		var rightUrl = document.getElementById('rightUrl').value;
+    		//删除前元素
+			var view = document.getElementById('rightView');
+    		while(view.hasChildNodes()){
+    			view.removeChild(view.firstChild);
+    		}
+    		//匹配url
+			var reg = /^http\S*$/;
+    		if(reg.test(rightUrl)){
+				var html = document.createElement("iframe");
+    			html.setAttribute("class","embed-responsive-item");
+    			html.setAttribute("src",rightUrl);
+    			view.appendChild(html);
+    		}else{
+    			view.innerHTML = rightUrl;
+    		}
+            if(rightUrl!=undefined && rightUrl!=null && rightUrl.trim() != ""){
+                localStorage.url = localStorage.url+","+ rightUrl ;
+            }
+    	}
+    </script>
+</body>
+</html>
